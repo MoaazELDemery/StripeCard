@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function VirtualCard() {
+export default function VirtualCard({ showSensitiveInfo }) {
     return (
         <div className="relative w-full aspect-[1.586/1] rounded-xl shadow-2xl overflow-hidden 
         bg-gradient-to-br from-[#137fec] to-[#052e56] text-white p-6 md:p-8 flex flex-col justify-between 
@@ -22,9 +22,9 @@ export default function VirtualCard() {
             <div className="relative z-10 mt-2">
                 <div className="flex items-center gap-3 md:gap-4 font-mono text-xl md:text-2xl tracking-widest text-white/90 drop-shadow-md">
                     <span>4242</span>
-                    <span>••••</span>
-                    <span>••••</span>
-                    <span>4242</span>
+                    <span>{showSensitiveInfo ? '4242' : '••••'}</span>
+                    <span>{showSensitiveInfo ? '4242' : '••••'}</span>
+                    <span>{showSensitiveInfo ? '4242' : '••••'}</span>
                 </div>
             </div>
             {/* Card Bottom */}

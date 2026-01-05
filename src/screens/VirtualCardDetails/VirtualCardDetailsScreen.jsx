@@ -9,6 +9,8 @@ import CardDetailsList from './components/CardDetailsList';
 import UsageTips from './components/UsageTips';
 
 export default function VirtualCardDetailsScreen() {
+    const [showSensitiveInfo, setShowSensitiveInfo] = React.useState(false);
+
     return (
         <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-text-main dark:text-white transition-colors duration-200">
             {/* Top Navigation */}
@@ -23,15 +25,18 @@ export default function VirtualCardDetailsScreen() {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                         {/* Left Column: Virtual Card Visualization */}
                         <div className="lg:col-span-5 flex flex-col gap-6">
-                            <VirtualCard />
+                            <VirtualCard showSensitiveInfo={showSensitiveInfo} />
                             <BalanceCard />
                             <TransactionSummary />
                         </div>
 
                         {/* Right Column: Details & Controls */}
                         <div className="lg:col-span-7 flex flex-col gap-6">
-                            <SecurityControl />
-                            <CardDetailsList />
+                            <SecurityControl
+                                showSensitiveInfo={showSensitiveInfo}
+                                onToggle={() => setShowSensitiveInfo(!showSensitiveInfo)}
+                            />
+                            <CardDetailsList showSensitiveInfo={showSensitiveInfo} />
                             <UsageTips />
                         </div>
                     </div>

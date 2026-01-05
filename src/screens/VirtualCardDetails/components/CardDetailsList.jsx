@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function CardDetailsList() {
+export default function CardDetailsList({ showSensitiveInfo }) {
+    const [copiedField, setCopiedField] = useState(null);
+
+    const handleCopy = (text, field) => {
+        navigator.clipboard.writeText(text);
+        setCopiedField(field);
+        setTimeout(() => setCopiedField(null), 2000);
+    };
+
+    const cardNumber = '4242 4242 4242 4242';
+    const cvv = '123';
+
     return (
         <div className="bg-white dark:bg-[#1a2634] rounded-xl border border-[#dbe0e6] dark:border-gray-700 overflow-hidden shadow-sm">
             <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
@@ -14,8 +25,14 @@ export default function CardDetailsList() {
                         <span className="text-xs text-text-secondary dark:text-gray-400 font-medium uppercase tracking-wide mb-1">Cardholder Name</span>
                         <span className="text-text-main dark:text-white font-medium text-lg">Moaaz Hamdy</span>
                     </div>
-                    <button className="text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 p-2 rounded-full transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100" title="Copy Name">
-                        <span className="material-symbols-outlined text-[20px]">content_copy</span>
+                    <button
+                        className="text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 p-2 rounded-full transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                        title="Copy Name"
+                        onClick={() => handleCopy('Moaaz Hamdy', 'cardHolder')}
+                    >
+                        <span className="material-symbols-outlined text-[20px]">
+                            {copiedField === 'cardHolder' ? 'check' : 'content_copy'}
+                        </span>
                     </button>
                 </div>
                 <div className="h-px bg-gray-100 dark:bg-gray-700 w-full"></div>
@@ -24,12 +41,21 @@ export default function CardDetailsList() {
                     <div className="flex flex-col w-full">
                         <span className="text-xs text-text-secondary dark:text-gray-400 font-medium uppercase tracking-wide mb-1">Card Number</span>
                         <div className="flex items-center gap-4">
-                            <span className="text-text-main dark:text-white font-mono font-medium text-lg tracking-wider">4242 4242 4242 4242</span>
+                            <span className="text-text-main dark:text-white font-mono font-medium text-lg tracking-wider">
+                                {showSensitiveInfo ? cardNumber : '4242 •••• •••• •••• '}
+                            </span>
                         </div>
                     </div>
-                    <button className="flex items-center gap-2 text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 px-3 py-1.5 rounded-full transition-colors bg-blue-50/50 dark:bg-blue-900/10">
-                        <span className="material-symbols-outlined text-[18px]">content_copy</span>
-                        <span className="text-sm font-semibold">Copy</span>
+                    <button
+                        className="flex items-center gap-2 text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 px-3 py-1.5 rounded-full transition-colors bg-blue-50/50 dark:bg-blue-900/10"
+                        onClick={() => handleCopy(cardNumber, 'cardNumber')}
+                    >
+                        <span className="material-symbols-outlined text-[18px]">
+                            {copiedField === 'cardNumber' ? 'check' : 'content_copy'}
+                        </span>
+                        <span className="text-sm font-semibold">
+                            {copiedField === 'cardNumber' ? 'Copied' : 'Copy'}
+                        </span>
                     </button>
                 </div>
                 <div className="h-px bg-gray-100 dark:bg-gray-700 w-full"></div>
@@ -48,12 +74,22 @@ export default function CardDetailsList() {
                         <div className="flex flex-col">
                             <span className="text-xs text-text-secondary dark:text-gray-400 font-medium uppercase tracking-wide mb-1">CVV / CVC</span>
                             <div className="flex items-center gap-2">
-                                <span className="text-text-main dark:text-white font-mono font-medium text-lg tracking-widest">123</span>
-                                <span className="text-text-secondary dark:text-gray-500 text-xs">(Visible)</span>
+                                <span className="text-text-main dark:text-white font-mono font-medium text-lg tracking-widest">
+                                    {showSensitiveInfo ? cvv : '•••'}
+                                </span>
+                                <span className="text-text-secondary dark:text-gray-500 text-xs">
+                                    {showSensitiveInfo ? '(Visible)' : '(Hidden)'}
+                                </span>
                             </div>
                         </div>
-                        <button className="text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 p-2 rounded-full transition-colors" title="Copy CVV">
-                            <span className="material-symbols-outlined text-[20px]">content_copy</span>
+                        <button
+                            className="text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 p-2 rounded-full transition-colors"
+                            title="Copy CVV"
+                            onClick={() => handleCopy(cvv, 'cvv')}
+                        >
+                            <span className="material-symbols-outlined text-[20px]">
+                                {copiedField === 'cvv' ? 'check' : 'content_copy'}
+                            </span>
                         </button>
                     </div>
                 </div>
