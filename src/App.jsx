@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
-import LoginScreen from './screens/LoginScreen';
-import SignUpScreen from './screens/SignUpScreen';
-import PaymentInputScreen from './screens/PaymentInputScreen';
-import VirtualCardDetailsScreen from './screens/VirtualCardDetailsScreen';
+import HomeScreen from './screens/Home/HomeScreen';
+import LoginScreen from './screens/Login/LoginScreen';
+import SignUpScreen from './screens/SignUp/SignUpScreen';
+import PaymentInputScreen from './screens/PaymentInput/PaymentInputScreen';
+
+import VirtualCardDetailsScreen from './screens/VirtualCardDetails/VirtualCardDetailsScreen';
 
 function App() {
   return (
